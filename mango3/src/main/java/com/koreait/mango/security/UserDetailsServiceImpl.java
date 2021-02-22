@@ -23,4 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return mapper.selUser(p);
 	}
 
+	public int join(UserEntity p) {
+		return mapper.insUser(p);
+	}
 }

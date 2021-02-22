@@ -11,6 +11,10 @@ spring:
     password: koreait2020
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-#Tomcat Port
+mybatis:
+  mapper-locations: mybatis-mapper/**/*.xml
+  type-aliases-package: com.koreait.mango.model 
+
+#Tomcat
 server: 
   port: 8090
