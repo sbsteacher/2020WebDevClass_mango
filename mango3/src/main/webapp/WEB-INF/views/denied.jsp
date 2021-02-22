@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>Denied</title>
 </head>
 <body>
-	<h1>Home</h1>
-	<a href="/logout">로그아웃</a>
+	<h1>Denied</h1>
 </body>
 </html>

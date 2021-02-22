@@ -16,10 +16,13 @@ public class HomeController {
 	
 	final HomeService service;
 	
-	@GetMapping("/")
+	@GetMapping({"/", "/home"})
 	public String home() {
 		return "home";
 	}
+	
+	@GetMapping("/denied")
+	public void denied() {}
 	
 	@GetMapping("/login")
 	public void login() {}

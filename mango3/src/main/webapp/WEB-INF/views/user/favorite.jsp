@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>favorite</title>
 </head>
 <body>
-	<h1>Home</h1>
-	<a href="/logout">로그아웃</a>
+	<h1>favorite</h1>
 </body>
 </html>

@@ -28,11 +28,12 @@
 		</form>
 	</div>
 	
-	
-	
-	
-	
-	
+	<div>
+		<a href="javascript:;" class="btn_social" data-social="facebook">페이스북 로그인</a>
+		<a href="javascript:;" class="btn_social" data-social="google">구글 로그인</a>
+		<a href="javascript:;" class="btn_social" data-social="kakao">카카오톡 로그인</a>
+		<a href="javascript:;" class="btn_social" data-social="naver">네이버 로그인</a>
+	</div>
 	
 	<div>
 		<a href="/join">회원가입</a>
