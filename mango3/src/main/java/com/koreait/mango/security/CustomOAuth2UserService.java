@@ -135,10 +135,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
 		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
 				oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
+		/*
+		//카카오 경우 이메일을 받기 어려움
 		if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
 			throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
 		}
-
+		 */		
 		UserEntity user = (UserEntity) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 				oAuth2UserInfo.getId());
 		if (user == null) { // insert
@@ -156,13 +158,17 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		return UserPrincipal.create(user, oAuth2User.getAttributes());
 	}
 
-	// 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
+
 	private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
 		Map<String, Object> userAttributes = response.getBody();
-		if (userAttributes.containsKey("response")) {
+		if (userAttributes.containsKey("response")) { 	// 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
 			LinkedHashMap responseData = (LinkedHashMap) userAttributes.get("response");
 			userAttributes.putAll(responseData);
 			userAttributes.remove("response");
+		} else if(userAttributes.containsKey("properties")) { //카카오는 properties 안에 nickname값이 포함되어 있음
+			LinkedHashMap propertiesData = (LinkedHashMap) userAttributes.get("properties");
+			userAttributes.putAll(propertiesData);
+			userAttributes.remove("properties");
 		}
 		return userAttributes;
 	}

@@ -127,7 +127,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.build();
 		} else if ("facebook".equals(client)) {
 			OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("facebook");
-			return CommonOAuth2Provider.FACEBOOK.getBuilder(client).clientId(registration.getClientId())
+			return CommonOAuth2Provider.FACEBOOK.getBuilder(client)
+					.clientId(registration.getClientId())
 					.clientSecret(registration.getClientSecret())
 					.userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
 					.scope("email")
