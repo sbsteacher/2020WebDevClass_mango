@@ -1,0 +1,41 @@
+spring:
+  #jsp
+  mvc:
+    view: 
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  #jdbc 설정
+  datasource:
+    url: jdbc:mysql://localhost:3306/mango?autoReconnect=true
+    username: root
+    password: koreait2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:            
+            client-id: 본인 google client-id
+            client-secret: 본인 google client-secret
+
+          facebook:            
+            client-id: 본인 facebook client-id
+            client-secret: 본인 facebook client-secret
+
+custom: 
+  oauth2: 
+    kakao:
+      client-id: 본인 kakao client-id
+      client-secret: 본인 kakao client-secret
+    naver:
+      client-id: 본인 naver client-id
+      client-secret: 본인 naver client-secret
+      
+mybatis:
+  mapper-locations: mybatis-mapper/**/*.xml
+  type-aliases-package: com.koreait.mango.model 
+  
+#Tomcat
+server: 
+  port: 8090
