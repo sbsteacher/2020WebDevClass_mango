@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2Clien
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
@@ -53,25 +55,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		
 		http.authorizeRequests()
-			.antMatchers("/user/**").hasRole("USER")
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/**").permitAll()
-			
-			.antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
-	        .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
-	        .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
-	        .antMatchers("/naver").hasAuthority(NAVER.getRoleType())
-	        .anyRequest().authenticated()
-	        	.and()
+				.antMatchers("/user/**").hasRole("USER")
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/**").permitAll()
+		 
+				.antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
+		        .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
+		        .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
+		        .antMatchers("/naver").hasAuthority(NAVER.getRoleType())
+		        .anyRequest().authenticated()
+		        	.and()
 		    .oauth2Login()
-		    	.userInfoEndpoint()
-		    		.userService(customOAuth2UserService)
-		    		.and()
-	    		.defaultSuccessUrl("/home")
+		        .userInfoEndpoint()
+		        	.userService(customOAuth2UserService)
+		        		.and()
+		        .defaultSuccessUrl("/home")
 		        .failureUrl("/login")
-		        .and()
+		        	.and()
 		    .exceptionHandling() 
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));;
+		    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
 		
 		http.formLogin()
 			.loginPage("/login")
@@ -104,14 +106,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.collect(Collectors.toList());
 		registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
 				.clientId(kakaoClientId)
-				.clientSecret(kakaoClientSecret)
-				.jwkSetUri("temp")
+				.clientSecret(kakaoClientSecret)				
 				.build()
 		);		
 		registrations.add(CustomOAuth2Provider.NAVER.getBuilder("naver")
 				.clientId(naverClientId)
-				.clientSecret(naverClientSecret)
-				.jwkSetUri("temp")
+				.clientSecret(naverClientSecret)				
 				.build()
 		);
 		return new InMemoryClientRegistrationRepository(registrations);

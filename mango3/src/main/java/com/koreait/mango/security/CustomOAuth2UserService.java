@@ -5,10 +5,13 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
@@ -30,6 +33,11 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
+import com.koreait.mango.model.UserEntity;
+import com.koreait.mango.security.model.OAuth2UserInfo;
+import com.koreait.mango.security.model.OAuth2UserInfoFactory;
+import com.koreait.mango.security.model.UserPrincipal;
+
 @Component
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	private static final String MISSING_USER_INFO_URI_ERROR_CODE = "missing_user_info_uri";
@@ -42,6 +50,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 	private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
 	private RestOperations restOperations;
 
+	@Autowired
+	private UserDetailsServiceImpl myUserService;
+
 	public CustomOAuth2UserService() {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
@@ -50,13 +61,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
 		Assert.notNull(userRequest, "userRequest cannot be null");
-		
-		UserInfoEndpoint uiep = userRequest.getClientRegistration()
-				.getProviderDetails()
-				.getUserInfoEndpoint();
-		
-		String uri = uiep.getUri();		
+
+		UserInfoEndpoint uiep = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint();
+
+		String uri = uiep.getUri();
 		if (!StringUtils.hasText(uri)) {
 			OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_INFO_URI_ERROR_CODE,
 					"Missing required UserInfo Uri in UserInfoEndpoint for Client Registration: "
@@ -64,8 +74,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 					null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}
-		
-		String userNameAttributeName = uiep.getUserNameAttributeName();		
+
+		String userNameAttributeName = uiep.getUserNameAttributeName();
 		if (!StringUtils.hasText(userNameAttributeName)) {
 			OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE,
 					"Missing required \"user name\" attribute name in UserInfoEndpoint for Client Registration: "
@@ -73,7 +83,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 					null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
 		}
-	
+
 		RequestEntity<?> request = this.requestEntityConverter.convert(userRequest);
 		ResponseEntity<Map<String, Object>> response;
 		try {
@@ -98,7 +108,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 					"An error occurred while attempting to retrieve the UserInfo Resource: " + ex.getMessage(), null);
 			throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
 		}
-		
+
 		Map<String, Object> userAttributes = getUserAttributes(response);
 		Set<GrantedAuthority> authorities = new LinkedHashSet<>();
 		authorities.add(new OAuth2UserAuthority(userAttributes));
@@ -106,10 +116,46 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		for (String authority : token.getScopes()) {
 			authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
 		}
-		return new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
-	} 
-	//https://www.callicoder.com/spring-boot-security-oauth2-social-login-part-2/
-	
+
+		// 네이버 때문에 이러한 구조가 생겨남 ----------------------------------------- [end]
+		OAuth2User oAuth2User = new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
+
+		try {
+			return processOAuth2User(userRequest, oAuth2User);
+		} catch (AuthenticationException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			// Throwing an instance of AuthenticationException will trigger the
+			// OAuth2AuthenticationFailureHandler
+			throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
+		}
+
+	}
+
+	private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
+		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
+				oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
+		if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+			throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+		}
+
+		UserEntity user = (UserEntity) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
+				oAuth2UserInfo.getId());
+		if (user == null) { // insert
+			UserEntity p = new UserEntity();
+			p.setProvider(oAuth2UserInfo.getProvider());
+			p.setUid(oAuth2UserInfo.getId());
+			p.setEmail(oAuth2UserInfo.getEmail());
+			p.setProfileImg(oAuth2UserInfo.getImageUrl());
+			p.setNm(oAuth2UserInfo.getName());
+			p.setAuth("ROLE_USER");
+			myUserService.join(p);
+			user = p;
+		}
+
+		return UserPrincipal.create(user, oAuth2User.getAttributes());
+	}
+
 	// 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
 	private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
 		Map<String, Object> userAttributes = response.getBody();

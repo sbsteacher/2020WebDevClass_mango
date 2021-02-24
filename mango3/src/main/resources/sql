@@ -1,0 +1,15 @@
+-- upw null허용 해야합니다.
+
+CREATE TABLE t_user(
+	userPk INT UNSIGNED AUTO_INCREMENT,
+	provider VARCHAR(10) COMMENT '로그인 타입(facebook, google, kakao ...etc)',
+	uid VARCHAR(20) NOT NULL,
+	upw VARCHAR(100),
+	email VARCHAR(30) NOT NULL,
+	profileImg VARCHAR(100),
+	nm VARCHAR(5) NOT NULL,
+	regDt DATETIME DEFAULT NOW(),
+	auth VARCHAR(11) DEFAULT 'ROLE_USER',
+	PRIMARY KEY(userPk),
+	UNIQUE(provider, uid)
+);

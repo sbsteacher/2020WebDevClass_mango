@@ -16,21 +16,21 @@ spring:
       client:
         registration:
           google:
-            client-id: 본인 google client-id
-            client-secret: 본인 google client-secret
+            client-id: 88a081241234cfacbedef7018ac451316f3
+            client-secret: 88a081241234cfacbedef7018ac451316f3
           
           facebook:
-            client-id: 본인 facebook client-id
-            client-secret: 본인 facebook client-secret
+            client-id: 419794055964381
+            client-secret: c3d47da2bbed4060d827a6031caee649
    
 custom: 
   oauth2: 
     kakao: 
-      client-id: 본인 kakao client-id
-      client-secret: 본인 kakao client-secret
+      client-id: 88a081241234cfacbedef7018ac451316f3
+      client-secret: jpXULoEzrasfawegsqYXlRLyyOHn2i60q 
     naver: 
-      client-id: 본인 naver client-id
-      client-secret: 본인 naver client-secret
+      client-id: SeVHVvgislUv0RMrdBMM
+      client-secret: ctPXW7bWwk
       
 mybatis:
   mapper-locations: mybatis-mapper/**/*.xml
