@@ -21,7 +21,7 @@ public class UserPrincipal extends UserEntity implements OAuth2User, UserDetails
 	private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
     
-    public UserPrincipal(UserEntity user) {
+    private UserPrincipal(UserEntity user) {
     	this.setUserPk(user.getUserPk());
     	this.setUid(user.getUid());
     	this.setUpw(user.getUpw());
@@ -31,7 +31,7 @@ public class UserPrincipal extends UserEntity implements OAuth2User, UserDetails
     	authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getAuth()));
     }
     
-    public static UserPrincipal create(UserEntity user,  Map<String, Object> attributes) {
+    public static UserPrincipal create(UserEntity user, Map<String, Object> attributes) {
     	 UserPrincipal userPrincipal = UserPrincipal.create(user);
          userPrincipal.setAttributes(attributes);
          return userPrincipal;
@@ -45,7 +45,7 @@ public class UserPrincipal extends UserEntity implements OAuth2User, UserDetails
     
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority(this.getAuth()));
+		return authorities;
 	}
 	
 	@Override

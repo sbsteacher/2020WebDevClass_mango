@@ -132,6 +132,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 	}
 
+	//커스터마이징 할 수 있는 부분
 	private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
 		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
 				oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
@@ -141,7 +142,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
 		}
 		 */		
-		UserEntity user = (UserEntity) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
+		UserPrincipal user = (UserPrincipal) myUserService.loadUserByUsername(oAuth2UserInfo.getProvider(),
 				oAuth2UserInfo.getId());
 		if (user == null) { // insert
 			UserEntity p = new UserEntity();
@@ -152,10 +153,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			p.setNm(oAuth2UserInfo.getName());
 			p.setAuth("ROLE_USER");
 			myUserService.join(p);
-			user = p;
+			return UserPrincipal.create(p, oAuth2User.getAttributes());
 		}
 
-		return UserPrincipal.create(user, oAuth2User.getAttributes());
+		return user;
 	}
 
 

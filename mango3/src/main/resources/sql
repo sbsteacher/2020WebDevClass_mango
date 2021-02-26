@@ -1,4 +1,4 @@
--- upw null허용 해야합니다.
+-- upw null 허용 해야합니다.
 -- email null 허용 해야합니다. (카카오 소셜 로그인은 email 값 가져오기 힘듬)
 
 CREATE TABLE t_user(

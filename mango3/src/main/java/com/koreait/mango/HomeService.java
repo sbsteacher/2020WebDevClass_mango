@@ -22,9 +22,8 @@ public class HomeService {
 	@Autowired
     private IAuthenticationFacade authenticationFacade;
 	
-	public void home() {
-		Authentication authentication = authenticationFacade.getAuthentication();
-		UserPrincipal user = (UserPrincipal)authentication.getPrincipal();
+	public void home() {		
+		UserPrincipal user = authenticationFacade.getUserPrincipal();
 		System.out.println("userPk(2) : " + user.getUserPk());
 	}
 	

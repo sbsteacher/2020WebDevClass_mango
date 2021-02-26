@@ -1,15 +1,13 @@
 package com.koreait.mango;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.koreait.mango.model.UserEntity;
-
 import com.koreait.mango.security.CurrentUser;
-import com.koreait.mango.security.UserDetailsServiceImpl;
 import com.koreait.mango.security.model.UserPrincipal;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +25,7 @@ public class HomeController {
 		
 	@GetMapping("/home")
 	@Secured({"ROLE_ADMIN", "ROLE_USER"})
-	public void home(@CurrentUser UserPrincipal userPrincipal) {
-		System.out.println("userPk : " + userPrincipal.getUserPk());
+	public void home2() {		
 		service.home();
 	}
 	

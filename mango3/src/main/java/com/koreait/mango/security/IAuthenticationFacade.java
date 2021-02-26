@@ -2,6 +2,8 @@ package com.koreait.mango.security;
 
 import org.springframework.security.core.Authentication;
 
-public interface IAuthenticationFacade {
-	Authentication getAuthentication();
+import com.koreait.mango.security.model.UserPrincipal;
+
+public interface IAuthenticationFacade {	
+	UserPrincipal getUserPrincipal();
 }
