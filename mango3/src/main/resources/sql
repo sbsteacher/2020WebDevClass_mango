@@ -14,3 +14,33 @@ CREATE TABLE t_user(
 	PRIMARY KEY(userPk),
 	UNIQUE(provider, uid)
 );
+
+
+-- 가게 테이블
+CREATE TABLE t_restaurant (
+	restPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	restNm VARCHAR(20) NOT NULL COMMENT '가게명',
+	addr VARCHAR(100) NOT NULL COMMENT '주소',
+	lat DOUBLE DEFAULT 0,
+	lng DOUBLE DEFAULT 0,
+	tel VARCHAR(12),
+	regDt DATETIME DEFAULT NOW(),
+	modDt DATETIME DEFAULT NOW()
+);
+
+-- 가게 메뉴정보 테이블
+CREATE TABLE t_restaurant_menu_info (
+	restMenuInfoPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	restPk INT UNSIGNED,
+	menuNm VARCHAR(20) NOT NULL,
+	menuPrice INT NOT NULL,
+	FOREIGN KEY (restPk) REFERENCES t_restaurant(restPk)
+);
+
+-- 가게 메뉴이미지 테이블
+CREATE TABLE t_restaurant_menu_img (
+	restMenuImgPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	restPk INT UNSIGNED,
+	img VARCHAR(50) NOT NULL,
+	FOREIGN KEY (restPk) REFERENCES t_restaurant(restPk)
+);

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.koreait.mango.model.UserEntity;
@@ -20,7 +21,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "home";
+		return "index";
 	}
 		
 	@GetMapping("/home")
@@ -31,10 +32,13 @@ public class HomeController {
 	
 	@GetMapping("/denied")
 	public void denied() {}
-	
+
 	@GetMapping("/login")
-	public void login() {}
-	
+	public void login(@ModelAttribute("userEntity") UserEntity userEntity) {
+		userEntity.setUid("admin");
+		userEntity.setUpw("1212");
+	}
+
 	@GetMapping("/join")
 	public void join() {}
 	

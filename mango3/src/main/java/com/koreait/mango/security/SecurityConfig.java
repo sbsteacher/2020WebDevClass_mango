@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/res/**");
+		//web.ignoring().antMatchers("/res/**");
+		web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
 	}
 	
 	@Override
@@ -63,20 +65,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
 		        .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
 		        .antMatchers("/naver").hasAuthority(NAVER.getRoleType())
-		        .anyRequest().authenticated()
-		        	.and()
-		    .oauth2Login()
+		    .and()
+		   
+		    .oauth2Login()	
+		    	.loginPage("/login")
 		        .userInfoEndpoint()
 		        	.userService(customOAuth2UserService)
 		        		.and()
-		        .defaultSuccessUrl("/home")
-		        .failureUrl("/login")
-		        	.and()
-		    .exceptionHandling() 
-		    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
+					        .defaultSuccessUrl("/home")
+					        .failureUrl("/login"); 
 		
 		http.formLogin()
 			.loginPage("/login")
+			.usernameParameter("uid")
+            .passwordParameter("upw")
 			.defaultSuccessUrl("/home");
 		
 		http.logout()
@@ -84,9 +86,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.logoutSuccessUrl("/login")
 			.invalidateHttpSession(true);
 		
-		http.exceptionHandling()
+		http.exceptionHandling()			
 			.accessDeniedPage("/denied");
 	}
+	
+	
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {

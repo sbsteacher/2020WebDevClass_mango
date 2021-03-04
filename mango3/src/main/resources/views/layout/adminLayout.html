@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko"	 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">Mango</title>
+    <th:block th:replace="fragments/config"></th:block>
+    <link rel="stylesheet" href="/css/admin.css"/>
+</head>
+<body>
+	<th:block th:replace="fragments/commonHeader :: header"></th:block>
+	<div id="container">
+		<th:block layout:fragment="content"></th:block>
+	</div>
+</body>
+</html>

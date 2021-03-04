@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout/adminLayout">
+	
+	<!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/admin/regRestaurant.css}" >
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script defer th:src="@{/js/admin/regRestaurant.js}"></script>
+    </th:block>
+
+	<div layout:fragment="content">
+		
+		<h1>가게 등록</h1>
+		<form id="frm" th:action="@{/admin/regRestaurant}" th:object="${restaurantEntity}" method="post">
+			<div>
+				가게명 : <input type="text" th:field="*{restNm}" required>
+			</div>
+			<div>
+				주소 : <input type="text" id="addrElem" th:field="*{addr}" required>
+			</div>
+			<div>
+				lat : <input type="text" id="lat" th:field="*{lat}" required readonly>
+				lng : <input type="text" id="lng" th:field="*{lng}" required readonly>
+				<input type="button" value="좌표값 가져오기" th:onclick="|clkGetLatLng()|">
+			</div>
+			<div>
+				전화번호 : <input type="tel" th:field="*{tel}" required>
+			</div>
+			<div>
+				<input type="submit" value="등록">
+			</div>
+		</form>
+		
+	</div>
+</html>

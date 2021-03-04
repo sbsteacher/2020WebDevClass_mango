@@ -1,0 +1,21 @@
+<html lagn="ko" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <!--configFragment 선언-->
+    <th:block th:fragment="configFragment">
+    
+    	<meta charset="UTF-8">
+    	          
+        <!-- 이 영역에 공통으로 사용할 css, js library를 선언한다. -->
+        <link rel="stylesheet" th:href="@{/css/common.css}" >
+        
+        <script th:src="@{/js/common.js}"></script>
+
+        <!-- Content Page의 CSS fragment 삽입 -->
+        <th:block layout:fragment="css"></th:block>
+
+        <!-- Content Page의 script fragment 삽입 -->
+        <th:block layout:fragment="script"></th:block>
+        
+    </th:block>
+</html>

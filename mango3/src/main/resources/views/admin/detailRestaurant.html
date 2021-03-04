@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout/adminLayout">
+	
+	<!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/admin/detailRestaurant.css}" >
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+    	<script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js(appkey=${appKey})}"></script>
+        <script defer th:src="@{/js/admin/detailRestaurant.js}"></script>
+    </th:block>
+
+	<div layout:fragment="content">
+		<div>		
+			<h1 th:text="${data.entity.restNm}"></h1>
+			<div>주소 : <span th:text="${data.entity.addr}"></span></div>
+			<div>전화번호 : <span th:text="${data.entity.tel}"></span></div>
+			<div>등록일: <span th:text="${data.entity.regDt}"></span></div>
+		</div>		
+		<div>
+			<h1>메뉴</h1>
+			<button th:onclick="|clkAddMenuInfo()|">메뉴 추가</button>
+			<form id="menuInfoFrm" th:action="@{/admin/regMenuInfo}" method="post">
+				<input type="hidden1" name="restPk" th:value="${data.entity.restPk}">
+				<div>
+					<label>메뉴명 : <input type="text" name="menuNm" required></label>
+					<label>금액 : <input type="number" name="menuPrice" required></label>
+				</div>
+			</form>
+			<button th:onclick="|clkSubmitMenuInfo()|">메뉴 등록</button>
+			<div th:each="item : ${data.menuInfoList}">
+				[[${item.menuNm}]] : <span th:text="${#numbers.formatInteger(item.menuPrice, 3, 'COMMA')}"></span>원
+			</div>
+		</div>
+		<div>
+			<h1>지도</h1>
+			<div id="map"></div>
+		</div>
+		<script th:inline="javascript">
+			const mapContainer = document.querySelector('#map')
+			function initMap(lat, lng) {
+				const latLng = new kakao.maps.LatLng(lat, lng)
+			
+				const options = { //지도를 생성할 때 필요한 기본 옵션
+					center: latLng,
+					level: 3 //지도의 레벨(확대, 축소 정도)
+				}
+				
+				map = new kakao.maps.Map(mapContainer, options);
+				
+				const marker = new kakao.maps.Marker({
+				    position: latLng
+				})
+				
+				marker.setMap(map)
+			}
+			/*<![CDATA[*/
+				initMap(/*[[${data.entity.lat}]]*/, /*[[${data.entity.lng}]]*/)    
+			/*]]>*/		</script>
+	</div>
+</html>
