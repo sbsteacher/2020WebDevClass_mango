@@ -8,10 +8,10 @@ import com.koreait.mango.model.*;
 @Mapper
 public interface AdminMapper {
 	int insRestaurant(RestaurantEntity p);
-	int insRestaurantMenuInfo(RestaurantMenuInfoEntity p);
-	int insRestaurantMenuImg(RestaurantMenuImgEntity p);
+	int insRestaurantMenuInfo(List<RestaurantMenuInfoEntity> p);
+	int insRestaurantMenuImg(List<RestaurantMenuImgEntity> p);
 	List<RestaurantDomain> selRestaurantList();
 	RestaurantEntity selRestaurant(RestaurantEntity p);
-	List<RestaurantMenuInfoEntity> selRestaurantMenuInfo(RestaurantEntity p);
-	List<RestaurantMenuImgEntity> selRestaurantMenuImg(RestaurantEntity p);
+	List<RestaurantMenuInfoEntity> selRestaurantMenuInfoList(RestaurantEntity p);
+	List<RestaurantMenuImgEntity> selRestaurantMenuImgList(RestaurantEntity p);
 }

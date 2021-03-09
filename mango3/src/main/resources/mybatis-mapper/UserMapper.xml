@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.mango.user.UserMapper">
+	<select id="selRestaurantListForMap" resultType="RestaurantDomain">
+		SELECT restPk, restNm, addr, lat, lng, tel, mainImg
+		FROM t_restaurant
+		WHERE lat BETWEEN #{swLat} AND #{neLat} 
+		AND lng BETWEEN #{swLng} AND #{neLng} 
+		ORDER BY restPk DESC
+	</select>
+	
+	
+	
+	<insert id="insBoard" useGeneratedKeys="true" keyProperty="boardPk">
+		INSERT INTO t_board
+		( title, ctnt, writerPk )
+		VALUES
+		( #{title}, #{ctnt}, #{writerPk} )	
+	</insert>
+</mapper>

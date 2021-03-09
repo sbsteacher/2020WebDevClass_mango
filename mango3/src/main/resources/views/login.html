@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
 </head>
 <body>
 	<h1>Login</h1>
+	<div th:if="${param.error}" class="alert alert-danger">    
+	    아이디와 비밀번호를 다시 확인해 주세요.
+	</div>
 	<div>
 		<form th:action="@{/login}" method="post" th:object="${userEntity}">
 			<div>

@@ -3,8 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org" 
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-	<title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">Mango</title>
-    <th:block th:replace="fragments/config"></th:block>
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Mango</title>
+    <th:block th:replace="fragments/config :: head"></th:block>
     <link rel="stylesheet" href="/css/admin.css"/>
 </head>
 <body>

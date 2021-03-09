@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+html, body {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+#container {
+	height: 100%;	
+}
+
+#container #content {
+	margin-top: -80px;
+	height: 100%;
+	display: flex;
+}
+
+
+#container #content #left {
+	width: 200px;
+	height: 100%;
+	overflow-y: auto; 
+}
+
+#container #content #left .item {
+	width: 200px;
+	cursor: pointer;
+}
+
+#container #content #left .item img {
+	width: 200px;
+}
+
+#container #content #map {
+	flex-grow: 1;
+	height: 100%;
+}

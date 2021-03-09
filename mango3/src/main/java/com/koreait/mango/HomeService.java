@@ -1,8 +1,5 @@
 package com.koreait.mango;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.koreait.mango.model.UserEntity;
@@ -16,11 +13,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HomeService {
 	
-	final HomeMapper mapper;	
+	final HomeMapper mapper;
 	final UserDetailsServiceImpl userDetailsService;
-	
-	@Autowired
-    private IAuthenticationFacade authenticationFacade;
+    final IAuthenticationFacade authenticationFacade;
 	
 	public void home() {		
 		UserPrincipal user = authenticationFacade.getUserPrincipal();

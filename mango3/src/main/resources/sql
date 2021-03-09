@@ -44,3 +44,45 @@ CREATE TABLE t_restaurant_menu_img (
 	img VARCHAR(50) NOT NULL,
 	FOREIGN KEY (restPk) REFERENCES t_restaurant(restPk)
 );
+
+
+
+-- 가게 리뷰
+CREATE TABLE t_restaurant_review (
+	reviewPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	restPk INT UNSIGNED,
+	writerPk INT UNSIGNED,
+	ctnt VARCHAR(2000) NOT NULL,
+	eval TINYINT UNSIGNED COMMENT '1:맛있다, 2:괜찮다, 3:별로' CHECK (eval IN (1, 2, 3)),
+	regDt DATETIME DEFAULT NOW(),
+	FOREIGN KEY (restPk) REFERENCES t_restaurant(restPk),
+	FOREIGN KEY (writerPk) REFERENCES t_user(userPk)
+);
+
+-- 가게 리뷰의 이미지
+CREATE TABLE t_restaurant_review_img (
+	reviewImgPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	reviewPk INT UNSIGNED,
+	img VARCHAR(50) NOT NULL,
+	FOREIGN KEY (reviewPk) REFERENCES t_restaurant_review(reviewPk)
+);
+
+
+
+-- 게시판
+CREATE TABLE t_board(
+	boardPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(100) NOT NULL,
+	ctnt TEXT,
+	writerPk INT UNSIGNED,
+	regDt DATETIME DEFAULT NOW(),
+	FOREIGN KEY (writerPk) REFERENCES t_user(userPk)
+);
+
+-- 게시판 내용에 쓰인 이미지
+CREATE TABLE t_board_img(
+	boardImgPk INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	boardPk INT UNSIGNED,
+	img VARCHAR(50) NOT NULL,
+	FOREIGN KEY (boardPk) REFERENCES t_board(boardPk)
+);

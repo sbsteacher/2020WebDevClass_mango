@@ -11,8 +11,9 @@
 	<insert id="insRestaurantMenuInfo">
 		INSERT INTO t_restaurant_menu_info
 		( restPk, menuNm, menuPrice )
+		VALUES
 		<foreach item="item" collection="list" separator=",">
-			( #{restPk}, #{item.menuNm}, #{item.menuPrice} )
+			( #{item.restPk}, #{item.menuNm}, #{item.menuPrice} )
 		</foreach>
 	</insert>
 	
@@ -20,7 +21,9 @@
 		INSERT INTO t_restaurant_menu_img
 		( restPk, img )
 		VALUES
-		( #{restPk}, #{img} )
+		<foreach item="item" collection="list" separator=",">
+			( #{item.restPk}, #{item.img} )
+		</foreach>
 	</insert>
 	
 	<select id="selRestaurantList" resultType="RestaurantEntity">
@@ -33,12 +36,12 @@
 		WHERE restPk = #{restPk}
 	</select>
 	
-	<select id="selRestaurantMenuInfo" resultType="RestaurantMenuInfoEntity">
+	<select id="selRestaurantMenuInfoList" resultType="RestaurantMenuInfoEntity">
 		SELECT * FROM t_restaurant_menu_info
 		WHERE restPk = #{restPk}
 	</select>
 	
-	<select id="selRestaurantMenuImg" resultType="RestaurantMenuImgEntity">
+	<select id="selRestaurantMenuImgList" resultType="RestaurantMenuImgEntity">
 		SELECT * FROM t_restaurant_menu_img
 		WHERE restPk = #{restPk}
 	</select>

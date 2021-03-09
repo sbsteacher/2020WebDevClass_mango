@@ -12,6 +12,7 @@ public class RestaurantEntity {
 	private double lat;
 	private double lng;
 	private String tel;
+	private String mainImg;
 	private String regDt;
 	private String modDt;
 }

@@ -20,13 +20,13 @@ public class HomeController {
 	final HomeService service;
 	
 	@GetMapping("/")
-	public String home() {
+	public String index() {
 		return "index";
 	}
 		
 	@GetMapping("/home")
 	@Secured({"ROLE_ADMIN", "ROLE_USER"})
-	public void home2() {		
+	public void home() {		
 		service.home();
 	}
 	
@@ -35,8 +35,7 @@ public class HomeController {
 
 	@GetMapping("/login")
 	public void login(@ModelAttribute("userEntity") UserEntity userEntity) {
-		userEntity.setUid("admin");
-		userEntity.setUpw("1212");
+		userEntity.setUid("mic");		
 	}
 
 	@GetMapping("/join")

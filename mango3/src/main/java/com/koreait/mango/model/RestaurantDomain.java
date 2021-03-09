@@ -1,5 +1,10 @@
 package com.koreait.mango.model;
 
-public class RestaurantDomain extends RestaurantEntity {
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+public class RestaurantDomain extends RestaurantEntity {
+	
 }

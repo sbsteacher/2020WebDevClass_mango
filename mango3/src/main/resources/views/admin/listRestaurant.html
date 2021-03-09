@@ -16,6 +16,22 @@
     </th:block>
 
 	<div layout:fragment="content">
-		리스트
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>가게명</th>				
+			</tr>
+			<tr th:each="item : ${data}" th:onclick="|clkArticle(${item.restPk})|">
+				<th th:text="${item.restPk}"></th>
+				<th th:text="${item.restNm}"></th>
+			</tr>
+		</table>
+		
+		<script th:inline="javascript">
+			function clkArticle(restPk) {
+				if(!restPk) { return }
+				location.href = `/admin/detailRestaurant?restPk=${restPk}`
+			}
+		</script>
 	</div>
 </html>

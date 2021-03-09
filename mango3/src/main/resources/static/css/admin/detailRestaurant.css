@@ -4,3 +4,14 @@
 	width:500px;
 	height:400px;
 }
+
+.menuImgContainer {
+	height: 400px;
+	overflow-x: auto;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.menuImgContainer .menuImg {
+	height: 400px;
+}

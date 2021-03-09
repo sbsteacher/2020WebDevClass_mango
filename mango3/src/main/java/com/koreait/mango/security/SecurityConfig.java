@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		http.csrf().disable();
 		
 		http.authorizeRequests()
@@ -93,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	
 	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {		
 		auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
 	}
 	

@@ -37,8 +37,9 @@ public class APIService {
 																	, entity
 																	, String.class);
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-		    JsonNode jsonNode = objectMapper.readTree(respEntity.getBody());
+			ObjectMapper objectMapper = new ObjectMapper();		    
+			JsonNode jsonNode = objectMapper.readTree(respEntity.getBody());
+		    
 		    int totalCount = objectMapper.treeToValue(jsonNode.path("meta").path("total_count"), Integer.class);
 		    if(totalCount > 0) {
 		    	double lat = objectMapper.treeToValue(jsonNode.path("documents").get(0).path("y"), Double.class);

@@ -1,0 +1,22 @@
+<html lang="ko"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout/topBottomLayout">
+
+	<!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/user/map.css}">
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+    	<script type="text/javascript" th:src="@{//dapi.kakao.com/v2/maps/sdk.js(appkey=${T(com.koreait.mango.Const).KAKAO_JAVASCRIPT_KEY})}"></script>
+        <script defer th:src="@{/js/user/map.js}"></script>
+    </th:block>
+    
+    <div id="content" layout:fragment="content">
+    	<div id="left"></div>
+    	<div id="map"></div>
+    </div>
+</html>

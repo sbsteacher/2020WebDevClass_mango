@@ -13,5 +13,3 @@ function clkAddMenuInfo () {
 function clkSubmitMenuInfo () {
 	menuInfoFrm.submit()
 }
-
-

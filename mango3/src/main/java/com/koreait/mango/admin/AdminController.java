@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
 import com.koreait.mango.Const;
 import com.koreait.mango.MyKey;
+import com.koreait.mango.model.MenuImgDTO;
 import com.koreait.mango.model.RestaurantEntity;
 
 @Controller
@@ -30,12 +32,18 @@ public class AdminController {
 	public String regMenuInfo(@RequestParam int restPk, @RequestParam String[] menuNm, @RequestParam String[] menuPrice) {
 		
 		
-		System.out.println("restPk : " + restPk);
-		for(String nm : menuNm) {
-			System.out.println("nm : " + nm);
-		}
+		service.regMenuInfo(restPk, menuNm, menuPrice);
 		
 		return "redirect:/admin/detailRestaurant?restPk=" + restPk;
+	}
+	
+	@PostMapping("/regMenuImg")
+	public String regMenuImg(MenuImgDTO p) {
+		
+		System.out.println("restPk : " + p.getRestPk());
+		System.out.println("imgs.size() : " + p.getImgs().size());
+		service.regMenuImg(p);
+		return "redirect:/admin/detailRestaurant?restPk=" + p.getRestPk();
 	}
 	
 	@GetMapping("/regRestaurant")
@@ -43,12 +51,11 @@ public class AdminController {
 	
 	@GetMapping("/listRestaurant")
 	public void listRestaurant(Model model) {
-		model.addAttribute("data", service.selRestaurantList());
+		model.addAttribute(MyKey.DATA.getVal(), service.selRestaurantList());
 	}
 	
 	@GetMapping("/detailRestaurant")
-	public void detailRestaurant(RestaurantEntity p, Model model) {
-		model.addAttribute(MyKey.APP_KEY.getVal(), Const.KAKAO_JAVASCRIPT_KEY);
+	public void detailRestaurant(RestaurantEntity p, Model model) {		
 		model.addAttribute(MyKey.DATA.getVal(), service.detailRestaurant(p));
 	}
 }

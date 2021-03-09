@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ko"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
@@ -15,8 +14,7 @@
         <script defer th:src="@{/js/admin/regRestaurant.js}"></script>
     </th:block>
 
-	<div layout:fragment="content">
-		
+	<div layout:fragment="content">		
 		<h1>가게 등록</h1>
 		<form id="frm" th:action="@{/admin/regRestaurant}" th:object="${restaurantEntity}" method="post">
 			<div>
@@ -39,4 +37,5 @@
 		</form>
 		
 	</div>
+	
 </html>
