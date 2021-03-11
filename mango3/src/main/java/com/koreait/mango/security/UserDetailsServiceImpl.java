@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.koreait.mango.HomeMapper;
 import com.koreait.mango.model.UserEntity;
-import com.koreait.mango.security.model.UserPrincipal;
+import com.koreait.mango.model.security.UserPrincipal;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,11 +33,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		UserEntity p = new UserEntity();
 		p.setProvider(provider);
 		p.setUid(uid);	
-		UserEntity ue = mapper.selUser(p);	
+		UserPrincipal ue = mapper.login(p);	
 		if(ue == null) {
 			return null;
 		}
-		return UserPrincipal.create(ue);
+		return ue;
 	}
 	
 	//소셜로그인, 폼로그인 함께 씁니다.

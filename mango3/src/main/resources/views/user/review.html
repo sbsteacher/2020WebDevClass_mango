@@ -1,0 +1,37 @@
+<html lang="ko"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="layout/topBottomLayout">
+    
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+    	
+    </th:block>
+    
+    <div layout:fragment="content">
+    	<form id="reviewFrm" th:action="@{/user/review}" method="post" enctype="multipart/form-data">
+    		<input type="hidden1" name="restPk" th:value="${param.restPk}">
+    		<div>
+    			평가 : 
+    			<label>맛있다<input type="radio" name="eval" value="1" checked></label>
+    			<label>괜찮다<input type="radio" name="eval" value="2"></label>
+    			<label>별로<input type="radio" name="eval" value="3"></label>
+    		</div>
+    		<div>
+    			<textarea name="ctnt" placeholder="내용" required></textarea>
+    		</div>
+    		<div>
+    			<div><label>이미지 : <input type="file" name="imgs" multiple></label></div>
+    		</div>
+    		<div>
+    			<input type="submit" value="리뷰 등록">
+    		</div>
+    	</form>
+    </div>
+</html>  

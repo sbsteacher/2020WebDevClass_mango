@@ -10,3 +10,4 @@ public class RestaurantMenuImgEntity {
 	private int restPk;
 	private String img;
 }
+ 

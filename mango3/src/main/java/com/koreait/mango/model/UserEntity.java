@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
+@Setter 
 public class UserEntity {
 	private int userPk;
 	private String provider;
@@ -16,3 +16,4 @@ public class UserEntity {
 	private String auth;
 	private String regDt;
 }
+ 

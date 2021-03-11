@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.mango.user.UserMapper">
+	
+	<!--////////////////////////////////////////////////////////////////////  리뷰  ///////////// -->	
+	<insert id="insRestaurantReview" useGeneratedKeys="true" keyProperty="reviewPk">
+		INSERT INTO t_restaurant_review
+		( restPk, writerPk, ctnt, eval )
+		VALUES
+		( #{restPk}, #{writerPk}, #{ctnt}, #{eval} )
+	</insert>
+	
+	<insert id="insRestaurantReviewImg">
+		INSERT INTO t_restaurant_review_img
+		( reviewPk, img )
+		VALUES
+		<foreach item="item" collection="list" separator=",">
+			( #{item.reviewPk}, #{item.img} )
+		</foreach>
+	</insert>
+	
+	<!--////////////////////////////////////////////////////////////////////  게시판  ///////////// -->	
+	<insert id="insBoard" useGeneratedKeys="true" keyProperty="boardPk">
+		INSERT INTO t_board
+		( title, ctnt, writerPk )
+		VALUES
+		( #{title}, #{ctnt}, #{writerPk} )	
+	</insert>
+	
+	<!--////////////////////////////////////////////////////////////////////  가게  ///////////// -->
+	<!-- 맵 -->
 	<select id="selRestaurantListForMap" resultType="RestaurantDomain">
 		SELECT restPk, restNm, addr, lat, lng, tel, mainImg
 		FROM t_restaurant
@@ -9,12 +37,50 @@
 		ORDER BY restPk DESC
 	</select>
 	
+	<select id="selRestaurant" resultType="RestaurantEntity">
+		SELECT * FROM t_restaurant
+		WHERE restPk = #{restPk}
+	</select>
+		
+	<select id="selRestaurantImgList" resultType="RestaurantReviewImgDomain">
+		SELECT A.restPk, A.reviewPk
+			 , B.reviewImgPk, B.img
+		FROM t_restaurant_review A
+		INNER JOIN t_restaurant_review_img B
+		ON A.reviewPk = B.reviewImgPk
+		WHERE A.restPk = #{restPk}
+		ORDER BY B.reviewImgPk DESC
+		LIMIT 5
+	</select>
 	
+	<select id="selRestaurantReviewList" resultType="RestaurantReviewDomain">
+		SELECT A.reviewPk, A.restPk, A.ctnt, A.eval, A.regDt
+			 , A.writerPk, B.nm AS writerNm 
+		FROM t_restaurant_review A
+		LEFT JOIN t_user B
+		ON A.writerPk = B.userPk
+		WHERE restPk = #{restPk}
+	</select>
 	
-	<insert id="insBoard" useGeneratedKeys="true" keyProperty="boardPk">
-		INSERT INTO t_board
-		( title, ctnt, writerPk )
-		VALUES
-		( #{title}, #{ctnt}, #{writerPk} )	
-	</insert>
+	<select id="selRestaurantReviewImgList" resultType="RestaurantReviewImgEntity">
+		SELECT * FROM t_restaurant_review_img
+		WHERE reviewPk = #{reviewPk}
+		ORDER BY reviewImgPk ASC
+	</select>
+	
+	<select id="selRestaurantMenuInfoList" resultType="RestaurantMenuInfoEntity">
+		SELECT * FROM t_restaurant_menu_info
+		WHERE restPk = #{restPk}
+	</select>
+	
+	<select id="selRestaurantMenuImgList" resultType="RestaurantMenuImgEntity">
+		SELECT * FROM t_restaurant_menu_img
+		WHERE restPk = #{restPk}
+	</select>
+	
+	<update id="updRestaurantMainImg">
+		UPDATE t_restaurant
+		SET mainImg = #{mainImg}
+		WHERE restPk = #{restPk} AND mainImg IS NULL
+	</update>
 </mapper>

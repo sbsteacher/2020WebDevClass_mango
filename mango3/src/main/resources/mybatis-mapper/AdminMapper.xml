@@ -31,21 +31,6 @@
 		ORDER BY restPk DESC
 	</select>
 	
-	<select id="selRestaurant" resultType="RestaurantEntity">
-		SELECT * FROM t_restaurant
-		WHERE restPk = #{restPk}
-	</select>
-	
-	<select id="selRestaurantMenuInfoList" resultType="RestaurantMenuInfoEntity">
-		SELECT * FROM t_restaurant_menu_info
-		WHERE restPk = #{restPk}
-	</select>
-	
-	<select id="selRestaurantMenuImgList" resultType="RestaurantMenuImgEntity">
-		SELECT * FROM t_restaurant_menu_img
-		WHERE restPk = #{restPk}
-	</select>
-	
 	<delete id="delRestaurantMenuInfo">
 		DELETE FROM t_restaurant_menu_info
 		WHERE restPk = #{restPk}

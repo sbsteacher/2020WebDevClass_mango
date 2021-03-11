@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 html, body {
-	width: 100% !important;
 	height: 100% !important;
+	width: 100% !important;
 }
 
 #container {
@@ -17,14 +17,15 @@ html, body {
 
 
 #container #content #left {
-	width: 200px;
 	height: 100%;
-	overflow-y: auto; 
+	overflow-y: auto;
+	padding-top: 80px;
+	width: 200px; 
 }
 
 #container #content #left .item {
-	width: 200px;
 	cursor: pointer;
+	width: 200px;
 }
 
 #container #content #left .item img {

@@ -1,12 +1,10 @@
--- upw null 허용 해야합니다.
--- email null 허용 해야합니다. (카카오 소셜 로그인은 email 값 가져오기 힘듬)
-
+-- 유저 테이블
 CREATE TABLE t_user(
 	userPk INT UNSIGNED AUTO_INCREMENT,
 	provider VARCHAR(10) COMMENT '로그인 타입(facebook, google, kakao ...etc)',
 	uid VARCHAR(20) NOT NULL,
 	upw VARCHAR(100),
-	email VARCHAR(30) NOT NULL,
+	email VARCHAR(30),
 	profileImg VARCHAR(100),
 	nm VARCHAR(5) NOT NULL,
 	regDt DATETIME DEFAULT NOW(),
@@ -24,6 +22,7 @@ CREATE TABLE t_restaurant (
 	lat DOUBLE DEFAULT 0,
 	lng DOUBLE DEFAULT 0,
 	tel VARCHAR(12),
+	mainImg VARCHAR(50),
 	regDt DATETIME DEFAULT NOW(),
 	modDt DATETIME DEFAULT NOW()
 );

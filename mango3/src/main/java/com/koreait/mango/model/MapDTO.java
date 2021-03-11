@@ -11,3 +11,4 @@ public class MapDTO {
 	private double swLat;
 	private double swLng;
 }
+ 

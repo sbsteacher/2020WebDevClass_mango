@@ -15,6 +15,7 @@ import com.koreait.mango.model.BoardEntity;
 import com.koreait.mango.model.MapDTO;
 import com.koreait.mango.model.RestaurantDomain;
 import com.koreait.mango.model.RestaurantEntity;
+import com.koreait.mango.model.review.RestaurantReviewDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,8 +39,18 @@ public class UserController {
 	
 	@GetMapping("/detailRestaurant")
 	public void detailRestaurant(RestaurantEntity p, Model model) {
-		model.addAttribute(MyKey.DATA.getVal(), service.detailRestaurant(p));
+		model.addAttribute(MyKey.DATA.getVal(), service.detailRestaurantWithHits(p));
 	}
+	
+	@GetMapping("/review")
+	public void review() {}
+	
+	@PostMapping("/review")
+	public String review(RestaurantReviewDTO p) {
+		service.review(p);
+		return "redirect:/user/detailRestaurant?restPk=" + p.getRestPk();
+	}
+	
 	
 	@GetMapping("/board/list")
 	public String boardList() {

@@ -110,7 +110,7 @@ function makeList() {
 		})
 		
 		const img = document.createElement('img')
-		img.src = `/img/rest/${item.restPk}/${item.mainImg}`
+		img.src = `/img/rest/${item.restPk}/review/${item.mainImg}`
 		img.onerror = function() {
 			img.onerror = null
 			img.src = '/img/basic.jpg'

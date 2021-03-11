@@ -12,3 +12,4 @@ public class BoardEntity {
 	private int writerPk;
 	private String regDt;
 }
+ 

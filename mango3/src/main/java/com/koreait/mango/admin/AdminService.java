@@ -15,6 +15,7 @@ import com.koreait.mango.model.RestaurantDomain;
 import com.koreait.mango.model.RestaurantEntity;
 import com.koreait.mango.model.RestaurantMenuImgEntity;
 import com.koreait.mango.model.RestaurantMenuInfoEntity;
+import com.koreait.mango.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminService {	
 	
 	final AdminMapper mapper;
+	final UserService userService;
 	final FileUtils fileUtils;
 	final NumberUtils numberUtils;
 	
@@ -85,10 +87,6 @@ public class AdminService {
 	}
 	
 	public RestaurantDetailDomain detailRestaurant(RestaurantEntity p) {
-		RestaurantDetailDomain result = new RestaurantDetailDomain();
-		result.setEntity(mapper.selRestaurant(p));	
-		result.setMenuImgList(mapper.selRestaurantMenuImgList(p));
-		result.setMenuInfoList(mapper.selRestaurantMenuInfoList(p));
-		return result;
+		return userService.detailRestaurant(p);
 	}
 }

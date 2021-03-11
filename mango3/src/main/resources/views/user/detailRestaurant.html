@@ -17,6 +17,12 @@
     </th:block>
 
 	<div layout:fragment="content">
+		<div id="imgList">
+			<img th:each="item : ${data.imgList}" th:src="@{/img/rest/{restPk}/review/{img}(restPk=${data.entity.restPk}, img=${item.img})}">
+		</div>
+		<div>
+			<a th:href="@{/user/review(restPk=${data.entity.restPk})}">리뷰하기</a>
+		</div>
 		<div>		
 			<h1 th:text="${data.entity.restNm}"></h1>
 			<div>주소 : <span th:text="${data.entity.addr}"></span></div>
@@ -38,6 +44,10 @@
 		<div>
 			<h1>지도</h1>
 			<div id="map"></div>
+		</div>
+		
+		<div>
+			리뷰 리스트
 		</div>
 		<script th:inline="javascript">
 			const mapContainer = document.querySelector('#map')

@@ -1,4 +1,4 @@
-package com.koreait.mango.model;
+package com.koreait.mango.model.review;
 
 import java.util.List;
 
@@ -9,8 +9,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MenuImgDTO {
-	private int restPk;
+public class RestaurantReviewDTO extends RestaurantReviewEntity {	
 	private List<MultipartFile> imgs;
 }
- 

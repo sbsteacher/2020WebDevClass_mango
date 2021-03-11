@@ -25,7 +25,7 @@ public class AdminController {
 	@PostMapping("/regRestaurant")
 	public String regRestaurantProc(RestaurantEntity p) {
 		service.insRestaurant(p);
-		return "redirect:/admin/detailRestaurant?restPk=" + p.getRestPk();
+		return "redirect:/admin/detailRestaurant?restPk=" + p.getRestPk(); 
 	}
 	
 	@PostMapping("/regMenuInfo")

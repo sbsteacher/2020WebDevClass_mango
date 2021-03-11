@@ -8,7 +8,7 @@
 		( #{provider}, #{uid}, #{upw}, #{email}, #{profileImg}, #{nm} )
 	</insert>
 	
-	<select id="selUser" resultType="UserEntity">
+	<select id="login" resultType="UserPrincipal">
 		SELECT * FROM t_user
 		WHERE uid = #{uid}
 		AND provider = #{provider}

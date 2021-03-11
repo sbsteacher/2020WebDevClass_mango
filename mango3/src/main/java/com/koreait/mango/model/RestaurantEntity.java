@@ -16,3 +16,4 @@ public class RestaurantEntity {
 	private String regDt;
 	private String modDt;
 }
+ 

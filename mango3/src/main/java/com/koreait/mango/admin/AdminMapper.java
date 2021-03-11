@@ -11,7 +11,4 @@ public interface AdminMapper {
 	int insRestaurantMenuInfo(List<RestaurantMenuInfoEntity> p);
 	int insRestaurantMenuImg(List<RestaurantMenuImgEntity> p);
 	List<RestaurantDomain> selRestaurantList();
-	RestaurantEntity selRestaurant(RestaurantEntity p);
-	List<RestaurantMenuInfoEntity> selRestaurantMenuInfoList(RestaurantEntity p);
-	List<RestaurantMenuImgEntity> selRestaurantMenuImgList(RestaurantEntity p);
 }

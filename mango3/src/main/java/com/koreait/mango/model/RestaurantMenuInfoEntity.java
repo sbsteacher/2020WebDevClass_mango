@@ -11,3 +11,4 @@ public class RestaurantMenuInfoEntity {
 	private String menuNm;
 	private int menuPrice;
 }
+ 
