@@ -1,6 +1,8 @@
 package com.koreait.mango.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.koreait.mango.MyKey;
-import com.koreait.mango.model.BoardEntity;
 import com.koreait.mango.model.MapDTO;
 import com.koreait.mango.model.RestaurantDomain;
 import com.koreait.mango.model.RestaurantEntity;
+import com.koreait.mango.model.board.BoardEntity;
 import com.koreait.mango.model.review.RestaurantReviewDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -53,13 +56,22 @@ public class UserController {
 	
 	
 	@GetMapping("/board/list")
-	public String boardList() {
-		return "/board/list";
+	public String boardList(Model model) {
+		model.addAttribute(MyKey.LIST.getVal(), service.selBoardList());
+		return "board/list";
 	}
 	
 	@GetMapping("/board/write")
 	public String boardWrite(@ModelAttribute("board") BoardEntity board) {
-		return "/board/write";
+		return "board/write";
+	}
+	
+	@ResponseBody
+	@PostMapping("/board/uploadImg")
+	public Map<String, String> uploadImg(MultipartFile ctntImg) {
+		Map<String, String> result = new HashMap();
+		result.put("default", service.saveBoardImg(ctntImg));		
+		return result;
 	}
 	
 	@PostMapping("/board/write")
@@ -69,8 +81,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/board/detail")
-	public void boardDetail(BoardEntity board) {
-		
+	public String boardDetail(BoardEntity p, Model model) {
+		model.addAttribute(MyKey.DATA.getVal(), service.selBoard(p));
+		return "board/detail";
 	}
 	
 	@GetMapping("/favorite")

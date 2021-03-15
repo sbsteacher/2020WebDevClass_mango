@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ko"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
@@ -7,15 +6,21 @@
 	
 	<!-- index.html 고유 CSS 추가 -->
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/board/list.css}">
+        <link rel="stylesheet" th:href="@{/css/board/detail.css}">
     </th:block>
     
     <!-- index.html 고유 스크립트 추가 -->
     <th:block layout:fragment="script">    	
-        <script defer th:src="@{/js/board/list.js}"></script>
+        <script defer th:src="@{/js/board/detail.js}"></script>
     </th:block>
 
 	<div layout:fragment="content">		
-		<div>디테일</div>
+		<div th:text="${data.title}"></div>
+		<div>
+			작성자 : <span th:text="${data.writerNm}"></span>
+			프로필이미지
+		</div>
+		<div>작성일시 : <span th:text="${data.regDt}"></span></div>
+		<div th:utext="${data.ctnt}"></div>
 	</div>
 </html>

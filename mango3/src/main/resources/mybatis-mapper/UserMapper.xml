@@ -27,6 +27,27 @@
 		( #{title}, #{ctnt}, #{writerPk} )	
 	</insert>
 	
+	<select id="selBoardList" resultType="BoardDomain">
+		SELECT A.boardPk, A.title, A.regDt
+			 , B.nm AS writerNm
+			 , B.profileImg AS writerProfileImg
+		FROM t_board A
+		LEFT JOIN t_user B
+		ON A.writerPk = B.userPk
+		ORDER BY A.boardPk DESC
+	</select>
+	
+	<select id="selBoard" resultType="BoardDomain">
+		SELECT A.*
+			 , B.nm AS writerNm
+			 , B.profileImg AS writerProfileImg
+		FROM t_board A
+		LEFT JOIN t_user B
+		ON A.writerPk = B.userPk
+		WHERE A.boardPk = #{boardPk}
+	</select>
+	
+	
 	<!--////////////////////////////////////////////////////////////////////  가게  ///////////// -->
 	<!-- 맵 -->
 	<select id="selRestaurantListForMap" resultType="RestaurantDomain">
@@ -47,7 +68,7 @@
 			 , B.reviewImgPk, B.img
 		FROM t_restaurant_review A
 		INNER JOIN t_restaurant_review_img B
-		ON A.reviewPk = B.reviewImgPk
+		ON A.reviewPk = B.reviewPk
 		WHERE A.restPk = #{restPk}
 		ORDER BY B.reviewImgPk DESC
 		LIMIT 5

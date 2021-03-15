@@ -3,20 +3,23 @@ package com.koreait.mango.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koreait.mango.Const;
 import com.koreait.mango.FileUtils;
-import com.koreait.mango.admin.AdminService;
-import com.koreait.mango.model.BoardEntity;
 import com.koreait.mango.model.MapDTO;
 import com.koreait.mango.model.RestaurantDetailDomain;
 import com.koreait.mango.model.RestaurantDomain;
 import com.koreait.mango.model.RestaurantEntity;
+import com.koreait.mango.model.board.BoardDomain;
+import com.koreait.mango.model.board.BoardEntity;
 import com.koreait.mango.model.review.RestaurantReviewDTO;
 import com.koreait.mango.model.review.RestaurantReviewDomain;
-import com.koreait.mango.model.review.RestaurantReviewEntity;
 import com.koreait.mango.model.review.RestaurantReviewImgEntity;
 import com.koreait.mango.model.security.UserPrincipal;
 import com.koreait.mango.security.IAuthenticationFacade;
@@ -107,9 +110,37 @@ public class UserService {
 		mapper.updRestaurantMainImg(p2);
 	}
 	
+	public String saveBoardImg(MultipartFile img) {
+		UserPrincipal user = authenticationFacade.getUserPrincipal();
+		String path = Const.IMG_PATH_TEMP + user.getUserPk();
+		
+		try {
+			String fileNm = fileUtils.transferTo(img, path);
+			return path + "/" + fileNm;
+		} catch(Exception e) {
+			return null;
+		}
+	}
+	
 	public int insBoard(BoardEntity p) {
+		//TODO: 글 내용에 img 들어간 부분을 뽑아내서 임시 폴더에 있는 이미지들을 모두 옮겨주고 내용에 있는 img src 주소값도 변경한다.
+		String ctnt = p.getCtnt();
+		Document doc = Jsoup.parseBodyFragment(ctnt);
+		Elements imgs = doc.getElementsByTag("img");
+		for(Element ele : imgs) {
+			String src = ele.attr("src");
+		}
+		
 		UserPrincipal user = authenticationFacade.getUserPrincipal();
 		p.setWriterPk(user.getUserPk());
 		return mapper.insBoard(p);
+	}
+	
+	public BoardDomain selBoard(BoardEntity p) {
+		return mapper.selBoard(p);
+	}
+	
+	public List<BoardDomain> selBoardList() {
+		return mapper.selBoardList();
 	}
 }

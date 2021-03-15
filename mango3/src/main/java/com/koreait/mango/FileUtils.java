@@ -54,8 +54,19 @@ public class FileUtils {
 		}
 	}
 	
+	public void moveFile(String before, String afterFolder) {
+		File folder = new File(afterFolder);
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		File file = new File(before);
+		
+	}
+	
 	//스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
 	public String getRealPath(String path) {
+		System.out.println(webApplicationContext.getServletContext().getRealPath(path));
 		return webApplicationContext.getServletContext().getRealPath(path);
 	}
 	

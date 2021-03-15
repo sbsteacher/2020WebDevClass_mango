@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ko"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
@@ -18,7 +17,7 @@
 
 	<div layout:fragment="content">
 		<h1>글쓰기</h1>
-		<form th:action="@{/user/board/write}" method="post" th:object="${board}">
+		<form id="writeFrm" th:action="@{/user/board/write}" method="post" th:object="${board}">
 			<div><input type="text" th:field="*{title}" placeholder="제목"></div>
 			<div>
 				<textarea th:field="*{ctnt}" id="editor"></textarea> 

@@ -129,7 +129,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			// OAuth2AuthenticationFailureHandler
 			throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
 		}
-
 	}
 
 	//커스터마이징 할 수 있는 부분

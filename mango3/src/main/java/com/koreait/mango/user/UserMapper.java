@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.koreait.mango.model.*;
+import com.koreait.mango.model.board.*;
 import com.koreait.mango.model.review.*;
 
 
@@ -12,10 +13,11 @@ public interface UserMapper {
 	//리뷰
 	int insRestaurantReview(RestaurantReviewEntity p);
 	int insRestaurantReviewImg(List<RestaurantReviewImgEntity> p);
-	
-	
+		
 	//게시판
 	int insBoard(BoardEntity p);
+	BoardDomain selBoard(BoardEntity p);
+	List<BoardDomain> selBoardList();
 	
 	//가게
 	int updRestaurantMainImg(RestaurantEntity p);

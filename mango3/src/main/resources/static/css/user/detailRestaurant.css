@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+#imgList {
+	height: 400px;
+	display: flex;
+	flex-wrap: nowrap;
+	width: 100%;
+}
+
+#imgList img {
+	width: 20%;
+}
+
+.menuImgContainer {
+	height: 400px;
+	overflow-x: auto;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.menuImgContainer .menuImg {
+	height: 400px;
+}
+
+
+#map {
+	width:500px;
+	height:400px;
+}
+
+.reviewContainer .reviewEach {
+	border-bottom: 1px solid #DBDBDB;
+}
+
+.reviewContainer .reviewEach .reviewItem {
+	display: flex;
+}
+
+.reviewContainer .reviewEach .reviewItem .reviewItem-0 {
+	padding: 20px;
+	width: 200px;	
+}
+
+.reviewContainer .reviewEach .reviewItem .reviewItem-5 {
+	padding: 20px;
+	width: 500px;
+}
+
+.reviewContainer .reviewEach .reviewItem .reviewItem-5 .reviewItem-5-imgs {
+	display: flex;
+	flex-wrap: nowrap;
+	height: 100px;
+}
+
+.reviewContainer .reviewEach .reviewItem .reviewItem-5 .reviewItem-5-imgs img {
+	height: 100px;
+}
+
+.reviewContainer .reviewEach .reviewItem .reviewItem-5 .reviewItem-5-imgs img:not(:first-child) {
+	margin-left: 20px;
+}
+
+.reviewContainer .reviewEach .reviewItem .reviewItem-10 {
+	padding: 20px;
+	width: 200px;	
+}
+
+
+
+
+
+
+
+
+

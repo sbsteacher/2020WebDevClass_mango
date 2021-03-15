@@ -2,7 +2,8 @@ package com.koreait.mango;
 
 public enum MyKey {
 	APP_KEY("appKey"),
-	DATA("data");
+	DATA("data"),
+	LIST("list");
 	
 	private String val;
 	

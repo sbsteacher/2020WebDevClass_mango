@@ -19,6 +19,24 @@
 		<div>
 			<a href="/user/board/write">글쓰기</a>
 		</div>
-		<div>리스트</div>
+		<div>
+			<table>
+				<tr>
+					<th>글번호</th>
+					<th>제목</th>
+					<th>글쓴이</th>
+					<th>작성일시</th>
+				</tr>
+				<tr class="article" th:each="item : ${list}" th:onclick="moveToDetail([[${item.boardPk}]])">
+					<td th:text="${item.boardPk}"></td>
+					<td th:text="${item.title}"></td>
+					<td>
+						<span th:text="${item.writerNm}"></span>
+						프로필이미지
+					</td>
+					<td th:text="${item.regDt}"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </html>

@@ -7,7 +7,7 @@
 	
 	<!-- index.html 고유 CSS 추가 -->
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/admin/detailRestaurant.css}">
+        <link rel="stylesheet" th:href="@{/css/user/detailRestaurant.css}">
     </th:block>
     
     <!-- index.html 고유 스크립트 추가 -->
@@ -47,8 +47,30 @@
 		</div>
 		
 		<div>
-			리뷰 리스트
-		</div>
+			<ul class="reviewContainer">
+				<h3>리뷰</h3>
+				<li class="reviewEach" th:each="item : ${data.reviewList}">
+					<div class="reviewItem">
+						<div class="reviewItem-0">
+							<div></div>
+							<div th:text="${item.writerNm}"></div>
+						</div>
+						<div class="reviewItem-5">
+							<div class="reviewItem-5-content" th:text="${item.ctnt}">
+							</div>
+							<div class="reviewItem-5-imgs">
+								<img th:each="img : ${item.imgs}" th:src="@{/img/rest/{restPk}/review/{img}(restPk=${data.entity.restPk}, img=${img.img})}">
+							</div>
+						</div>
+						<div class="reviewItem-10" th:switch="${item.eval}">
+							<div th:case="1">맛있다</div>
+							<div th:case="2">괜찮다</div>
+							<div th:case="3">별로</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>		
 		<script th:inline="javascript">
 			const mapContainer = document.querySelector('#map')
 			function initMap(lat, lng) {

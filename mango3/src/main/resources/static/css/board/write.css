@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.ck.ck-editor { 
+	max-width:800px;	
+}
+
+.ck-editor__editable {
+	min-height: 500px;
+}
