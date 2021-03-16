@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koreait.mango.Const;
-import com.koreait.mango.FileUtils;
+import com.koreait.mango.MyFileUtils;
 import com.koreait.mango.NumberUtils;
 import com.koreait.mango.model.MenuImgDTO;
 import com.koreait.mango.model.RestaurantDetailDomain;
@@ -25,7 +25,7 @@ public class AdminService {
 	
 	final AdminMapper mapper;
 	final UserService userService;
-	final FileUtils fileUtils;
+	final MyFileUtils fileUtils;
 	final NumberUtils numberUtils;
 	
 	public int insRestaurant(RestaurantEntity p) {

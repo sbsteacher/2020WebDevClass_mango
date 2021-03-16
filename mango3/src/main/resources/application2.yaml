@@ -1,9 +1,11 @@
 spring:
-  #jsp
-  mvc:
-    view: 
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+  thymeleaf:
+    check-template-location: true
+    prefix: classpath:views/
+    suffix: .html
+    mode: HTML5
+    cache: false   
+      
   #jdbc 설정
   datasource:
     url: jdbc:mysql://localhost:3306/mango?autoReconnect=true

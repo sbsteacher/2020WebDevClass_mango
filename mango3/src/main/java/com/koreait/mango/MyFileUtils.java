@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class FileUtils {
+public class MyFileUtils {
 	
 	final WebApplicationContext webApplicationContext;
 
@@ -54,19 +55,14 @@ public class FileUtils {
 		}
 	}
 	
-	public void moveFile(String before, String afterFolder) {
-		File folder = new File(afterFolder);
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
-		
-		File file = new File(before);
-		
+	public void moveFile(String beforePath, String afterPath) {
+		try {
+			FileUtils.moveFile(FileUtils.getFile(getRealPath(beforePath)), FileUtils.getFile(getRealPath(afterPath)));
+		} catch(Exception e) {}
 	}
 	
 	//스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
-	public String getRealPath(String path) {
-		System.out.println(webApplicationContext.getServletContext().getRealPath(path));
+	public String getRealPath(String path) {		
 		return webApplicationContext.getServletContext().getRealPath(path);
 	}
 	

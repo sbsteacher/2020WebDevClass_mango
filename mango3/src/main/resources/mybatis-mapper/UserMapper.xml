@@ -27,6 +27,13 @@
 		( #{title}, #{ctnt}, #{writerPk} )	
 	</insert>
 	
+	<insert id="insBoardImg">
+		INSERT INTO t_board_img
+		( boardPk, img ) 
+		VALUES
+		( #{boardPk}, #{img} )
+	</insert>
+	
 	<select id="selBoardList" resultType="BoardDomain">
 		SELECT A.boardPk, A.title, A.regDt
 			 , B.nm AS writerNm
@@ -47,7 +54,13 @@
 		WHERE A.boardPk = #{boardPk}
 	</select>
 	
-	
+	<update id="updBoard">
+		UPDATE t_board
+		SET title = #{title}
+		, ctnt = #{ctnt}
+		WHERE boardPk = #{boardPk}
+		AND writerPk = #{writerPk}
+	</update>
 	<!--////////////////////////////////////////////////////////////////////  가게  ///////////// -->
 	<!-- 맵 -->
 	<select id="selRestaurantListForMap" resultType="RestaurantDomain">

@@ -16,8 +16,10 @@ public interface UserMapper {
 		
 	//게시판
 	int insBoard(BoardEntity p);
+	int insBoardImg(BoardImgEntity p);
 	BoardDomain selBoard(BoardEntity p);
 	List<BoardDomain> selBoardList();
+	int updBoard(BoardEntity p);
 	
 	//가게
 	int updRestaurantMainImg(RestaurantEntity p);
