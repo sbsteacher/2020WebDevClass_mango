@@ -15,9 +15,13 @@ import lombok.RequiredArgsConstructor;
 public class HomeController {
 	
 	final HomeService service;
+	final MyFileUtils myFileUtils;
 	
 	@GetMapping("/")
 	public String index() {
+		String path = myFileUtils.getRealPath("ddd");
+		System.out.println(path);
+		
 		return "index";
 	}
 		

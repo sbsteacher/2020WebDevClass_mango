@@ -25,13 +25,13 @@ public class AdminController {
 	@PostMapping("/regRestaurant")
 	public String regRestaurantProc(RestaurantEntity p) {
 		service.insRestaurant(p);
-		return "redirect:/admin/detailRestaurant?restPk=" + p.getRestPk(); 
+		return "redirect:/admin/detailRestaurant?restPk=" + p.getRestPk();
 	}
 	
 	@PostMapping("/regMenuInfo")
-	public String regMenuInfo(@RequestParam int restPk, @RequestParam String[] menuNm, @RequestParam String[] menuPrice) {
-		
-		
+	public String regMenuInfo(@RequestParam int restPk
+			, @RequestParam String[] menuNm
+			, @RequestParam String[] menuPrice) {
 		service.regMenuInfo(restPk, menuNm, menuPrice);
 		
 		return "redirect:/admin/detailRestaurant?restPk=" + restPk;
@@ -47,7 +47,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("/regRestaurant")
-	public void regRestaurant(@ModelAttribute RestaurantEntity restaurant) {}
+	public void regRestaurant(@ModelAttribute(value="restaurant") RestaurantEntity restaurant) {
+		restaurant.setRestNm("하하하");
+	}
 	
 	@GetMapping("/listRestaurant")
 	public void listRestaurant(Model model) {

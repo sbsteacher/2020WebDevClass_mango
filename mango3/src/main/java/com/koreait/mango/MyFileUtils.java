@@ -2,6 +2,8 @@ package com.koreait.mango;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
@@ -56,14 +58,16 @@ public class MyFileUtils {
 	}
 	
 	public void moveFile(String beforePath, String afterPath) {
+		
 		try {
 			FileUtils.moveFile(FileUtils.getFile(getRealPath(beforePath)), FileUtils.getFile(getRealPath(afterPath)));
 		} catch(Exception e) {}
 	}
 	
 	//스프링이 돌아가고 있는 절대주소값에 path값을 붙여서 가져오기
-	public String getRealPath(String path) {		
-		return webApplicationContext.getServletContext().getRealPath(path);
+	public String getRealPath(String path) {
+		Path uploadPath = Paths.get("." + path);
+		return uploadPath.toFile().getAbsolutePath();
 	}
 	
 	public String getRandomFileNm() {

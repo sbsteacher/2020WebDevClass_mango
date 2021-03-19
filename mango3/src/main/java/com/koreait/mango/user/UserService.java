@@ -127,13 +127,13 @@ public class UserService {
 	public int insBoard(BoardEntity p) {
 		UserPrincipal user = authenticationFacade.getUserPrincipal();
 		p.setWriterPk(user.getUserPk());
-		mapper.insBoard(p);
+		mapper.insBoard(p); //boardPk 얻었음!!
 		
 		String ctnt = p.getCtnt();
 		Document doc = Jsoup.parseBodyFragment(ctnt);
 		Elements imgs = doc.getElementsByTag("img");
 		
-		BoardImgEntity bImgEntity = new BoardImgEntity();
+		BoardImgEntity bImgEntity = new BoardImgEntity(); //t_board_img에 insert용
 		bImgEntity.setBoardPk(p.getBoardPk());
 		
 		for(Element ele : imgs) {
@@ -151,6 +151,7 @@ public class UserService {
 		}
 		
 		p.setCtnt(ctnt);
+		
 		return mapper.updBoard(p);
 	}
 	

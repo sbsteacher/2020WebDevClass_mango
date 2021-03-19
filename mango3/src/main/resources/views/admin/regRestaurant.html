@@ -16,7 +16,7 @@
 
 	<div layout:fragment="content">		
 		<h1>가게 등록</h1>
-		<form id="frm" th:action="@{/admin/regRestaurant}" th:object="${restaurantEntity}" method="post">
+		<form id="frm" th:action="@{/admin/regRestaurant}" th:object="${restaurant}" method="post">
 			<div>
 				가게명 : <input type="text" th:field="*{restNm}" required>
 			</div>

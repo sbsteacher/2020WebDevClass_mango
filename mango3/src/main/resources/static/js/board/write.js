@@ -13,7 +13,7 @@ class MyUploadAdapter {
             		data.append('ctntImg', ctntImg)
 
 					fetch('/user/board/uploadImg', {
-						method: 'POST',
+						method: 'POST',						
 						body: data
 					})
 					.then(res => res.json())

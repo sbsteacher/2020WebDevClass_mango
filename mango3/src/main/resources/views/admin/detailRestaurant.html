@@ -25,12 +25,12 @@
 		<div>
 			<h1>메뉴</h1>
 			<button th:onclick="|clkAddMenuInfo()|">메뉴 추가</button>
-			<form id="menuInfoFrm" th:action="@{/admin/regMenuInfo}" method="post">
+			<form id="menuInfoFrm" th:action="@{/admin/regMenuInfo}" method="post">				
 				<input type="hidden" name="restPk" th:value="${data.entity.restPk}">
 				<div>
 					<label>메뉴명 : <input type="text" name="menuNm" required></label>
 					<label>금액 : <input type="number" name="menuPrice" required></label>
-				</div>
+				</div>								
 			</form>
 			<button th:onclick="|clkSubmitMenuInfo()|">메뉴 등록</button>
 			<div th:each="item : ${data.menuInfoList}">
