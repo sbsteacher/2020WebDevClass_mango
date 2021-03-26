@@ -1,6 +1,7 @@
 package com.koreait.mango;
 
 public enum MyKey {
+	MENUS("menus"),
 	APP_KEY("appKey"),
 	DATA("data"),
 	LIST("list");

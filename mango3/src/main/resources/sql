@@ -85,3 +85,20 @@ CREATE TABLE t_board_img(
 	img VARCHAR(50) NOT NULL,
 	FOREIGN KEY (boardPk) REFERENCES t_board(boardPk)
 );
+
+-- 메뉴 
+CREATE TABLE t_menus(
+	menuPk INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	auth VARCHAR(12) NOT NULL,
+	link VARCHAR(30) NOT NULL,
+	title VARCHAR(10) NOT null
+);
+
+INSERT INTO t_menus
+( auth, link, title )
+VALUES
+( 'ROLE_ADMIN', '/admin/listRestaurant', '리스트' ),
+( 'ROLE_ADMIN', '/admin/regRestaurant', '등록' ),
+( 'ROLE_USER', '/user/map', '지도' ),
+( 'ROLE_USER', '/user/board/list', '게시판' ),
+( 'ROLE_USER', '/user/myPage', 'MyPage' );

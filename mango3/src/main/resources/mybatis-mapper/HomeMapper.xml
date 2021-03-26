@@ -13,4 +13,9 @@
 		WHERE uid = #{uid}
 		AND provider = #{provider}
 	</select>
+	
+	<select id="selMenus" resultType="MenuEntity">
+		SELECT * FROM t_menus
+		WHERE auth = #{auth}
+	</select>
 </mapper>

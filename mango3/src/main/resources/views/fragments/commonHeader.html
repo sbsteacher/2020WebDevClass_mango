@@ -20,26 +20,16 @@
         		</ul>
         		
         		<div sec:authorize="isAuthenticated()">
-        			<ul class="menus" sec:authorize="hasRole('ROLE_USER')">
-	        			<li><a href="/user/map">지도</a></li>
-	        			<li><a href="/user/board/list">게시판</a></li>
-	        			<li><a href="/user/myPage">MyPage</a></li>
-	        			<li>
+        			<ul class="menus">
+        				<li th:each="item : ${menus}">
+        					<a href="${item.link}" th:text="${item.title}"></a>
+        				</li>
+        				<li>
 			        		<form action="#" th:action="@{/logout}" method="post">
 								<input type="submit" value="로그아웃" />
 							</form>	
 		        		</li>
-	        		</ul>
-	        		
-	        		<ul class="menus" sec:authorize="hasRole('ROLE_ADMIN')">
-	        			<li><a href="/admin/listRestaurant">리스트</a></li>
-	        			<li><a href="/admin/regRestaurant">등록</a></li>
-	        			<li>
-			        		<form action="#" th:action="@{/logout}" method="post">
-								<input type="submit" value="로그아웃" />
-							</form>	
-		        		</li>
-	        		</ul>
+        			</ul>
         		</div>
 	        </div>
 	    </nav>
