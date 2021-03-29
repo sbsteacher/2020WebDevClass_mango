@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   thymeleaf:
     check-template-location: true
     prefix: classpath:views/
@@ -37,7 +39,12 @@ custom:
 mybatis:
   mapper-locations: mybatis-mapper/**/*.xml
   type-aliases-package: com.koreait.mango.model 
+
+logging:
+  config: classpath:logback-${spring.profiles.active}.xml
   
 #Tomcat
 server: 
   port: 8090
+  
+# java -jar -Dspring.profiles.active=prod    
