@@ -26,7 +26,12 @@ spring:
           facebook:            
             client-id: 본인 facebook client-id
             client-secret: 본인 facebook client-secret
-
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 30MB
+      location: D:/home/mango #윈도우에서 테스트할 때는 정확한 드라이브 값까지 줘야 함.
+      #location: /home/mango 리눅스 서버에 저장하고 싶은 경로로 변경하면 됩니다.
 custom: 
   oauth2: 
     kakao:
